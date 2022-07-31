@@ -2,6 +2,7 @@ const express = require("express")
 
 
 const app = express();
+let myItem =[];
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended:true}))
@@ -16,12 +17,14 @@ app.get("/", function (req, res) {
     let day = today.toLocaleDateString("en-US",options)
 
     res.render('list', {
-        kindOfDay: day
-    });
+        kindOfDay: day ,nameItem: myItem});
 })
 
 app.post("/",function(request,respone){
-    console.log(request.body.nameItem)
+    let item = request.body.nameItem;
+    myItem.push(item)
+    respone.redirect("/");
+    
 })
 
 app.listen(3000, function () {
